@@ -1,0 +1,9 @@
+{
+    "name": "custom-wordsearch",
+    "description": "The Custom Wordsearch.",
+    "keywords": ["wordsearch"],
+    "type": "project",
+    "require": {
+        "xmeltrut/word-search": "^1.0"
+    }
+}

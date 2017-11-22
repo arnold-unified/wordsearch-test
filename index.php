@@ -1,18 +1,20 @@
 <?php
-//----------------------------------------------------------------------
-//  AUTHOR	: Jean-Francois GAZET
-//  WEB		: http://www.jeffprod.com
-//  TWITTER	: @JeffProd
-//  MAIL	: jeffgazet@gmail.com
-//  LICENCE	: GNU GENERAL PUBLIC LICENSE Version 2, June 1991
-//----------------------------------------------------------------------
 
-require_once 'class.grid.php';
-require_once 'class.word.php';
+require 'vendor/autoload.php';
+require_once('app/Data.php');
 
-$grid=new Grid();
-$grid->gen();
-echo $grid->render();
-echo "Words to find (".$grid->getNbWords()."):<br>";
-echo $grid->getWordsList("<br>");
-?>
+use WordSearch\Factory as WSFactory;
+use WordSearch\Transformer\HtmlTransformer as WSHtmlTransformer;
+
+/** Get states data */
+$data = new Data(); // args: name (default), capital, abbreviation
+$words = $data->parse()->get();
+
+/** Initialize and generate puzzle */
+$puzzle = WSFactory::create($words);
+$transformer = new WSHtmlTransformer($puzzle);
+
+/** Display puzzle */
+echo $transformer->grid();
+echo count($words);
+echo $transformer->wordList();
