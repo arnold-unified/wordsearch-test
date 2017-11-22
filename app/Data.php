@@ -27,6 +27,20 @@ class Data {
         return $this;
     }
 
+    public function trim()
+    {
+        $newWords = array_map(
+            function($word) {
+                return preg_replace('/\s+/', '', $word);
+            }, 
+            $this->words
+        );
+
+        $this->words = $newWords;
+
+        return $this;
+    }
+
     public function get()
     {
         return $this->words;
